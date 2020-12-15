@@ -24,9 +24,7 @@ import net.dv8tion.jda.api.entities.Activity;
 public class MAIN {
 	public static String prefixe = "<";
 	public static List Users;
-	public static final String ANSI_RED = "\u001B[31m";
-	public static final String ANSI_RESET = "\u001B[0m";
-
+	
 	public static void main(String[] args) {
 
 		try {
@@ -41,8 +39,8 @@ public class MAIN {
 			jda.awaitReady();
 			jda.addEventListener(new ChatterbotListener());
 			Users = jda.getUsers();
-			jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.listening("und liest deine Nachrichten!"),
-					true);
+			jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.playing("für dich"));
+					
 			System.out.println(Users);
 			System.out.println("Finished Building JDA!");
 		
