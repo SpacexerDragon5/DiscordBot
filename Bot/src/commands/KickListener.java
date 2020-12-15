@@ -64,8 +64,8 @@ public class KickListener extends ListenerAdapter {
 									.append(member.getEffectiveName()).append("! Cya!").queue(), error -> {
 
 										if (error instanceof PermissionException) {
-											PermissionException pe = (PermissionException) error;
-											Permission missingPermission = pe.getPermission();
+											//PermissionException pe = (PermissionException) error;
+											//Permission missingPermission = pe.getPermission();
 
 											channel.sendMessage("PermissionError kicking [")
 													.append(member.getEffectiveName()).append("]: ")

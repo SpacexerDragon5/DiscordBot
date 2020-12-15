@@ -1,23 +1,17 @@
-package botter.tests;
+package cleverbot;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomChangeListener;
-import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
-
-
 import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 
-public class CleverParser{
+public class CleverParser {
 
     private static CleverParser instance = new CleverParser();
 
@@ -79,4 +73,6 @@ public class CleverParser{
         return "";
         }
     }
+
+	
 }
