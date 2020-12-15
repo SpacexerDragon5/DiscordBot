@@ -3,15 +3,7 @@ package commands;
 import java.awt.Color;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.PrivateChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -23,39 +15,18 @@ public class BListener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {//when a message received do this:
 		String[] args = event.getMessage().getContentRaw().split("\\s+");// to split the message in each argument
 
-		JDA jda = event.getJDA();
-		long responseNumber = event.getResponseNumber();
+	
+	
 
 		// Event specific information
-		User autor = event.getAuthor();//standart, not need for every thing, but can maybe helpfull
+		
 		Message nachricht = event.getMessage();
-		MessageChannel channel = event.getChannel();
+		
 
 		String msg = nachricht.getContentDisplay();
 
-		boolean bot = autor.isBot();
+		
 
-		if (event.isFromType(ChannelType.TEXT)) {
-
-			Guild guild = event.getGuild();
-			TextChannel textChannel = event.getTextChannel();
-			Member member = event.getMember();
-
-			String name;
-			if (nachricht.isWebhookMessage()) {
-				name = autor.getName();
-			} else {
-				name = member.getEffectiveName();
-			}
-
-			// System.out.printf("(%s)[%s]<%s>: %s\n", guild.getName(),
-			// textChannel.getName(), name, msg);
-		} else if (event.isFromType(ChannelType.PRIVATE)) {
-
-			PrivateChannel privateChannel = event.getPrivateChannel();
-
-			// System.out.printf("[PRIV]<%s>: %s\n", autor.getName(), msg);
-		}
 		if (args[0].equals(prefix + "k")) {//the command is: <k
 			setkomplettmute();
 		}
@@ -65,7 +36,7 @@ public class BListener extends ListenerAdapter {
 				EmbedBuilder infob = new EmbedBuilder();
 
 				infob.setTitle("Botter help");//the math syntax
-				infob.setDescription("💻 Dieser Bot kann rechnen! KEINE LEERZEICHN!");
+				infob.setDescription("💻 Dieser Bot kann rechnen! KEINE LEERZEICHN!");//no spaces between math operations
 				infob.addField("*", "	Multiplizeirt", true);
 				infob.addField("/", "	Dividiert", false);
 				infob.addField("-", "	subtrahiert", true);

@@ -6,16 +6,10 @@ import javax.security.auth.login.LoginException;
 
 
 import commands.BListener;
-import commands.BlockListener;
 import commands.ChatterbotListener;
 import commands.DeleteListener;
 import commands.InfoListener;
-import commands.KickListener;
 import commands.MathListener;
-import commands.PingListener;
-import commands.RollListener;
-
-import events.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -33,11 +27,14 @@ public class MAIN {
 			JDA jda = JDABuilder.createDefault(token.token)//token 
 					.addEventListeners(new InfoListener(), 
 						 new MathListener(),
-							new BListener(), new DeleteListener()/*, new ChatterbotListener()*/) // An instance of a class that
+							new BListener(), new DeleteListener(), new ChatterbotListener()/*, new ChatterbotListener()*/) // An instance of a class that
 																	// will handle events.
 					.build();
 			jda.awaitReady();
-			jda.addEventListener(new ChatterbotListener());
+			
+			
+		
+			
 			Users = jda.getUsers();
 			jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.playing("für dich"));
 					

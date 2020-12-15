@@ -23,46 +23,18 @@ public class RollListener extends ListenerAdapter {
 		String prefix = "<";
 		String[] args = event.getMessage().getContentRaw().split("\\s+");
 
-		JDA jda = event.getJDA();
-		long responseNumber = event.getResponseNumber();
+		
 
 		// Event specific information
-		User autor = event.getAuthor();
+		
 		Message nachricht = event.getMessage();
 		MessageChannel channel = event.getChannel();
 
 		String msg = nachricht.getContentDisplay();
 
-		boolean bot = autor.isBot();
-
-		if (event.isFromType(ChannelType.TEXT)) {
-
-			Guild guild = event.getGuild();
-			TextChannel textChannel = event.getTextChannel();
-			Member member = event.getMember();
-
-			String name;
-			if (nachricht.isWebhookMessage()) {
-				name = autor.getName();
-			} else {
-				name = member.getEffectiveName();
-			}
-
-			// System.out.printf("(%s)[%s]<%s>: %s\n", guild.getName(),
-			// textChannel.getName(), name, msg);
-		} else if (event.isFromType(ChannelType.PRIVATE)) {
-
-			PrivateChannel privateChannel = event.getPrivateChannel();
-
-			// System.out.printf("[PRIV]<%s>: %s\n", autor.getName(), msg);
-		}
+		
 		if (args[0].equals(prefix + "k")) {
-			setkomplettmute(true);
-			channel.sendMessage("Stumm komplett... ... ich bin traurig").queue();
-		}
-		if (args[0].equals(prefix + "u")) {
-			setkomplettmute(false);
-			channel.sendMessage("Stumm komplett aufgehoben.. ... ich bin froh").queue();
+			setkomplettmute();
 		}
 		if (!komplettstumm) {
 			if (msg.equals(prefix + "roll")) {
@@ -77,8 +49,11 @@ public class RollListener extends ListenerAdapter {
 
 	}
 
-	public void setkomplettmute(boolean b) {
-		komplettstumm = b;
+	public void setkomplettmute() {//set mute or not
+		if(komplettstumm==true) {
+			komplettstumm = false;
+		} else {
+			komplettstumm=true;
+		}
 	}
-
 }

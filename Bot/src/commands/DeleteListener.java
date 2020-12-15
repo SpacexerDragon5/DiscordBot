@@ -24,39 +24,15 @@ public class DeleteListener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		String[] args = event.getMessage().getContentRaw().split("\\s+");
 
-		JDA jda = event.getJDA();
-		long responseNumber = event.getResponseNumber();
+		
 
 		// Event specific information
-		User autor = event.getAuthor();
-		Message nachricht = event.getMessage();
+	
 		MessageChannel channel = event.getChannel();
 
-		String msg = nachricht.getContentDisplay();
+	
 
-		boolean bot = autor.isBot();
-
-		if (event.isFromType(ChannelType.TEXT)) {
-
-			Guild guild = event.getGuild();
-			TextChannel textChannel = event.getTextChannel();
-			Member member = event.getMember();
-
-			String name;
-			if (nachricht.isWebhookMessage()) {
-				name = autor.getName();
-			} else {
-				name = member.getEffectiveName();
-			}
-
-			// System.out.printf("(%s)[%s]<%s>: %s\n", guild.getName(),
-			// textChannel.getName(), name, msg);
-		} else if (event.isFromType(ChannelType.PRIVATE)) {
-
-			PrivateChannel privateChannel = event.getPrivateChannel();
-
-			// System.out.printf("[PRIV]<%s>: %s\n", autor.getName(), msg);
-		}
+		
 		if (args[0].equals(prefix + "k")) {
 			setkomplettmute(true);
 		}
@@ -65,37 +41,37 @@ public class DeleteListener extends ListenerAdapter {
 		}
 		if (!komplettstumm) {
 			if (args[0].equals(prefix + "d")) {
-				if (args.length < 2) {
+				if (args.length < 2) {//the amount of arguments should not be less than 1
 					channel.sendTyping().queue();
 					channel.sendMessage("Bitte gib auch das zu Löschende Wort ein!⚖").queue();
 					;
 
-				} else if (args.length > 2) {
+				} else if (args.length > 2) {//the amount of arguments should not be more than 1
 					channel.sendTyping().queue();
 					channel.sendMessage("Bitte gib nur EIN Wort zum löschen ein!").queue();
 					;
 				} else {
-					String u = args[1];
-					if (u.length() < 3) {
+					String u = args[1];//the word to delete
+					if (u.length() < 3) {//the word should contain more than 2 chars, so you can´t delete all messages because they contain the letter 'e' for example
 						channel.sendTyping().queue();
 						channel.sendMessage(
 								"Bitte gib ein längeres Wort ein, damit nich unnötog Sachen gelöscht werden: Wenn du nämlich \"l\" eingibts werden alle Nachrichten die \"l\" enthalten gelöscht!");
 
 					} else {
 
-						List<Message> r = event.getChannel().getHistory().retrievePast(100).complete();
-						r.remove(0);
+						List<Message> r = event.getChannel().getHistory().retrievePast(100).complete();//get the last 100 messages
+						r.remove(0);//remove the first, so you don´t delete the command for deleting
 
 						int delcounter = 0;
-						for (int q = 0; q < r.size(); q++) {
+						for (int q = 0; q < r.size(); q++) {//iteration for every message
 
-							getMessageID(r.get(q).toString());
+							getMessageID(r.get(q).toString());//the message ID of the current message
 
-							if (getMessage(r.get(q).toString(), args[1])) {
+							if (getMessage(r.get(q).toString(), args[1])) {//is true when the message contains the word to delete
 								event.getChannel().deleteMessageById(getMessageID(r.get(q).toString())).queueAfter(425,
-										TimeUnit.MILLISECONDS);
+										TimeUnit.MILLISECONDS);//prevents to get blocked for acting to fast
 
-								delcounter++;
+								delcounter++;//counts how many Messages are deletet
 
 							}
 
@@ -110,7 +86,7 @@ public class DeleteListener extends ListenerAdapter {
 		}
 	}
 
-	public boolean getMessage(String wors, String search) {
+	public boolean getMessage(String wors, String search) {//ignore case of letters and search in String so you can´t prevent to delete id by just adding another letter or smth.
 		wors = wors.toLowerCase();
 		search = search.toLowerCase();
 
@@ -118,7 +94,7 @@ public class DeleteListener extends ListenerAdapter {
 
 	}
 
-	public String getMessageID(String s) {
+	public String getMessageID(String s) {//this method exctraccts the ID of the Message, because you need to now the ID to delete it
 		String sr = s;
 
 		boolean b = false;

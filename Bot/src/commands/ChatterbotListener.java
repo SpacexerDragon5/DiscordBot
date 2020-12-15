@@ -22,6 +22,8 @@ public class ChatterbotListener extends ListenerAdapter {
 	private boolean gibkomentar = true;
 	private boolean bot;
 	private boolean botunterhaltung;
+	
+	Thread t = new Thread();
 
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {

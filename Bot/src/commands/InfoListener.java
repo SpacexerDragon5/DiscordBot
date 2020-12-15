@@ -26,17 +26,15 @@ public class InfoListener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		String[] args = event.getMessage().getContentRaw().split("\\s+");
 
-		JDA jda = event.getJDA();
-		long responseNumber = event.getResponseNumber();
-
+		
 		// Event specific information
 		User autor = event.getAuthor();
 		Message nachricht = event.getMessage();
-		MessageChannel channel = event.getChannel();
+	
 
 		String msg = nachricht.getContentDisplay();
 
-		boolean bot = autor.isBot();
+	
 
 		if (event.isFromType(ChannelType.TEXT)) {
 
@@ -54,15 +52,12 @@ public class InfoListener extends ListenerAdapter {
 			System.out.printf("(%s)[%s]<%s>: %s\n", guild.getName(), textChannel.getName(), name, msg);
 		} else if (event.isFromType(ChannelType.PRIVATE)) {
 
-			PrivateChannel privateChannel = event.getPrivateChannel();
+		
 
 			System.out.printf("[PRIV]<%s>: %s\n", autor.getName(), msg);
 		}
-		if (args[0].equals(prefix + "k")) {
-			setkomplettmute(true);
-		}
-		if (args[0].equals(prefix + "u")) {
-			setkomplettmute(false);
+		if (args[0].equals(prefix + "k")) {//the command is: <k
+			setkomplettmute();
 		}
 		if (!komplettstumm) {
 			if (msg.equals(prefix + "info")) {
@@ -78,6 +73,7 @@ public class InfoListener extends ListenerAdapter {
 						false);
 				info.addField("<m", "	Schaltet Botter stumm", false);
 				info.addField("<l", "	Entstummt Botter", false);
+				info.addField("<k", "Botter gibt keine Kommentare mehr zu irgendetwas: an/aus", false);
 				info.addField("<cl", "Ask Cleverbot something...", false);
 				info.addField("<gibkommentar", "Aktiviert7 Deaktiviert automatisches antworten", false);
 				info.setColor(Color.red);
@@ -109,7 +105,11 @@ public class InfoListener extends ListenerAdapter {
 		}
 	}
 
-	public void setkomplettmute(boolean b) {
-		komplettstumm = b;
+	public void setkomplettmute() {//set mute or not
+		if(komplettstumm==true) {
+			komplettstumm = false;
+		} else {
+			komplettstumm=true;
+		}
 	}
 }
