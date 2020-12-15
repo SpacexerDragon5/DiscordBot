@@ -55,11 +55,9 @@ public class BlockListener extends ListenerAdapter {
 			// System.out.printf("[PRIV]<%s>: %s\n", autor.getName(), msg);
 		}
 		if (args[0].equals(prefix + "k")) {
-			setkomplettmute(true);
+			setkomplettmute();
 		}
-		if (args[0].equals(prefix + "u")) {
-			setkomplettmute(false);
-		}
+		
 		if (!komplettstumm) {
 			if (msg.equals(prefix + "block")) {
 
@@ -88,7 +86,11 @@ public class BlockListener extends ListenerAdapter {
 		}
 	}
 
-	public void setkomplettmute(boolean b) {
-		komplettstumm = b;
+	public void setkomplettmute() {//set mute or not
+		if(komplettstumm==true) {
+			komplettstumm = false;
+		} else {
+			komplettstumm=true;
+		}
 	}
 }

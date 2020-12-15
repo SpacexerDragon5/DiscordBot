@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.security.auth.login.LoginException;
 
-import commands.Answerlistener;
+
 import commands.BListener;
 import commands.BlockListener;
 import commands.ChatterbotListener;
@@ -26,12 +26,15 @@ public class MAIN {
 	public static List Users;
 	public static final String ANSI_RED = "\u001B[31m";
 	public static final String ANSI_RESET = "\u001B[0m";
+
 	public static void main(String[] args) {
 
 		try {
-			JDA jda = JDABuilder.createDefault("Nzg2OTM0MTkwMTYzNzU1MDI4.X9Nnkw.zU2EfiZxUevSnNtoMnr4gtmJA68")
+			token token = new token();
+			
+			JDA jda = JDABuilder.createDefault(token.token)//token 
 					.addEventListeners(new InfoListener(), 
-						new Answerlistener(), new MathListener(),
+						 new MathListener(),
 							new BListener(), new DeleteListener()/*, new ChatterbotListener()*/) // An instance of a class that
 																	// will handle events.
 					.build();
@@ -53,5 +56,6 @@ public class MAIN {
 		}
 
 	}
+	
 
 }
