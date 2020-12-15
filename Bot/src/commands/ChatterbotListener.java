@@ -9,13 +9,13 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ChatterbotListener extends ListenerAdapter  implements Runnable{
-	public boolean komplettstumm = false;
-	public CleverParser r = new CleverParser();
-	public String answer;
-	public boolean gibkomentar = true;
-	public boolean bot;
-	public boolean init = true;
-	public String msg;
+	public volatile boolean   komplettstumm = false;
+	public volatile CleverParser r = new CleverParser();
+	public volatile String answer;
+	public volatile boolean gibkomentar = true;
+	public volatile boolean bot;
+	public volatile boolean init = true;
+	public volatile String msg;
 public	boolean gotanswer = false;
 
 	
@@ -60,16 +60,11 @@ public	boolean gotanswer = false;
 			if(gibkomentar) {
 			
 				event.getChannel().sendTyping().queue();
-				
+				run();
+				while(!gotanswer);
+					gotanswer=false;
 				event.getChannel().sendMessage(answer).queue();
-				try {
-					
-					answer = r.sendAI(msg);
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}
 			
 			if (args[0].equals(prefix + "cl")) {
@@ -77,9 +72,10 @@ public	boolean gotanswer = false;
 				msg = msg.substring(3);
 				event.getChannel().sendTyping().queue();
 				run();
-				while(!gotanswer);
+			while(!gotanswer);
 				gotanswer=false;
 				event.getChannel().sendMessage(answer).queue();
+			
 			}
 			
 			
