@@ -1,5 +1,5 @@
 You will need the following libs:
-[I'm an inline-style link](https://www.google.com)
+
 
   HtmlUnit:   https://sourceforge.net/projects/htmlunit/
   
